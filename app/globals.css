@@ -1,0 +1,92 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0b0b10;
+  --panel: #14141c;
+  --pink: #ff3ec9;
+  --text: #ececf2;
+  --dim: #8b8b9a;
+}
+
+body {
+  background: radial-gradient(1200px 800px at 50% -200px, #1a1225 0%, var(--bg) 60%);
+  color: var(--text);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  min-height: 100vh;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 40px 16px 80px; text-align: center; }
+
+h1 { font-size: 28px; letter-spacing: 1px; margin-bottom: 6px; }
+h1 .pink { color: var(--pink); }
+.sub { color: var(--dim); font-size: 14px; margin-bottom: 36px; }
+
+/* the mystery box */
+.box {
+  width: 240px; height: 240px; margin: 0 auto 10px; position: relative;
+  border-radius: 18px; overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.02) 70%, rgba(255,255,255,0.12) 100%),
+    radial-gradient(circle at 50% 65%, #241a2e 0%, #121016 75%);
+  box-shadow: 0 0 60px rgba(255, 62, 201, 0.12), inset 0 0 40px rgba(0,0,0,0.5);
+}
+.box::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 48%, transparent 56%);
+  transform: translateX(-120%);
+  animation: shine 3.5s ease-in-out infinite;
+}
+@keyframes shine { 55% { transform: translateX(120%); } 100% { transform: translateX(120%); } }
+.box .q {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 84px; color: rgba(255, 62, 201, 0.55); text-shadow: 0 0 30px rgba(255,62,201,0.5);
+}
+.box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.box.loading { animation: rumble 0.4s linear infinite; }
+@keyframes rumble {
+  0%,100% { transform: translate(0,0) rotate(0deg); }
+  25% { transform: translate(-2px,1px) rotate(-0.6deg); }
+  50% { transform: translate(2px,-1px) rotate(0.5deg); }
+  75% { transform: translate(-1px,-2px) rotate(0.4deg); }
+}
+.box.poof img { animation: poof 0.7s cubic-bezier(0.2, 1.6, 0.4, 1); }
+@keyframes poof { 0% { transform: scale(0.2); opacity: 0; filter: blur(12px); } 100% { transform: scale(1); opacity: 1; filter: blur(0); } }
+
+.loadmsg { color: var(--pink); font-size: 13px; min-height: 20px; margin-bottom: 24px; }
+
+/* input row */
+.row { display: flex; gap: 8px; justify-content: center; margin: 18px 0 8px; }
+input {
+  background: var(--panel); border: 1px solid #2a2a38; color: var(--text);
+  padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 16px; width: 240px; outline: none;
+}
+input:focus { border-color: var(--pink); }
+button.go {
+  background: var(--pink); color: #16060f; border: 0; font: inherit; font-weight: 700;
+  padding: 12px 22px; border-radius: 10px; cursor: pointer; font-size: 16px;
+}
+button.go:disabled { opacity: 0.4; cursor: default; }
+.hint { font-size: 12px; color: var(--dim); min-height: 18px; }
+.hint.ok { color: #7be08a; }
+.hint.bad { color: #ff7a7a; }
+
+/* action buttons */
+.actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0 6px; }
+.actions a {
+  display: inline-block; padding: 10px 16px; border-radius: 10px; text-decoration: none;
+  font-size: 14px; border: 1px solid #2a2a38; color: var(--text); background: var(--panel);
+}
+.actions a.primary { background: var(--pink); border-color: var(--pink); color: #16060f; font-weight: 700; }
+.again { font-size: 13px; color: var(--dim); cursor: pointer; background: none; border: 0; font: inherit; text-decoration: underline; }
+
+/* gallery */
+.gal-title { margin: 48px 0 14px; color: var(--dim); font-size: 13px; letter-spacing: 1px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.gallery a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid #23232f; }
+.gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.gallery a:hover { border-color: var(--pink); }
+
+.foot { margin-top: 48px; font-size: 12px; color: var(--dim); }
+.foot a { color: var(--pink); text-decoration: none; }
